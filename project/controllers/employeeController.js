@@ -75,13 +75,37 @@ router.get('/list', (req, res) => {
     }).lean();
 });
 
-router.get('/match', (req, res) => {
+router.post('/match', (req, res) => {
 
 
     let $search = this.search;
+
+    var equipment=req.body.equipment;
+    var element=req.body.element;
+    console.log(element)
     Employee.aggregate( [{
         '$match': {
-            'cost': 1231
+            'fullName':equipment
+        }
+    }],(err, docs) => {
+        if (!err) {
+            res.render("employee/search", {
+                list: docs
+            });
+        }
+        else {
+            console.log('Error in retrieving employee list :' + err);
+        }
+    });
+});
+
+router.get('/search', (req, res) => {
+
+
+    var equipment=req.body.equipment;
+    Employee.aggregate( [{
+        '$match': {  //ten frgamnet jest w zasadzie nie potrzebny
+            'equipment':"cos"
         }
     }],(err, docs) => {
         if (!err) {
