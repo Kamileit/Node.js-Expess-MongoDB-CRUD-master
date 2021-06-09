@@ -1,0 +1,49 @@
+<h3><a class="btn btn-secondary" href="/employee"><i class="fa fa-plus"></i> Create New</a> Employee List Search</h3>
+
+
+
+
+<div class="form-group">
+    <label>Search</label>
+    <input type="text" class="form-control" name="search" placeholder="Equipment" value="{{search}}">
+
+</div>
+
+<div class="form-group">
+    <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
+    <a class="btn btn-secondary" href="/employee/list"><i class="fa fa-list-alt"></i> View All</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Equipment</th>
+        <th>Warranty</th>
+        <th>Release</th>
+        <th>Cost</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>City</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each list}}
+        <tr>
+            <td>{{this.equipment}}</td>
+            <td>{{this.warranty}}</td>
+            <td>{{this.release}}</td>
+            <td>{{this.cost}}</td>
+            <td>{{this.fullName}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.mobile}}</td>
+            <td>{{this.city}}</td>
+            <td>
+                <a href="/employee/{{this._id}}"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
+                <a href="/employee/delete/{{this._id}}" onclick="return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
