@@ -75,7 +75,7 @@ router.get('/list', (req, res) => {
     }).lean();
 });
 
-router.post('/match', (req, res) => {
+router.all('/match', (req, res) => {
 
 
     let $search = this.search;
@@ -85,7 +85,7 @@ router.post('/match', (req, res) => {
     console.log(element)
     Employee.aggregate( [{
         '$match': {
-            'fullName':equipment
+            'equipment':equipment
         }
     }],(err, docs) => {
         if (!err) {
@@ -99,25 +99,6 @@ router.post('/match', (req, res) => {
     });
 });
 
-router.get('/search', (req, res) => {
-
-
-    var equipment=req.body.equipment;
-    Employee.aggregate( [{
-        '$match': {  //ten frgamnet jest w zasadzie nie potrzebny
-            'equipment':"cos"
-        }
-    }],(err, docs) => {
-        if (!err) {
-            res.render("employee/match", {
-                list: docs
-            });
-        }
-        else {
-            console.log('Error in retrieving employee list :' + err);
-        }
-    });
-});
 
 
 
