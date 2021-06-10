@@ -21,6 +21,25 @@
         <button type="submit" class="btn btn-info"><i class="fa fa-database"></i> Submit</button>
         <a class="btn btn-secondary" href="/employee/list"><i class="fa fa-list-alt"></i> View All</a>
     </div>
+    <div class="form-group">
+        <label>Full name order</label>
+        <div class="form-group">
+        <label><input type="radio" name="mode" value="on" checked="checked"> A->Z</label><br>
+        <label><input type="radio" name="mode" value="off" > Z->A</label><br>
+
+    </div>
+
+    <div class="form-group">
+        <label>Number of records</label>
+        <div class="form-group">
+            <label><input type="radio" name="limit" value="1" checked="checked"> 1</label>
+            <label><input type="radio" name="limit" value="10"> 10</label>
+            <label><input type="radio" name='limit' value="30" > 30</label>
+            <label><input type="radio" name='limit' value="50"> 50</label>
+        </div>
+    </div>
+
+
 </form>
 
 <table class="table table-striped">

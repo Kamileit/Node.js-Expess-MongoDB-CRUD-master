@@ -2,7 +2,7 @@ const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
 const Employee = mongoose.model('Employee');
-
+var Handlebars = require('handlebars');
 router.get('/', (req, res) => {
     res.render("employee/addOrEdit", {
         viewTitle: "Insert Employee"
@@ -15,6 +15,14 @@ router.post('/', (req, res) => {
         else
         updateRecord(req, res);
 });
+
+/* Handlebars.registerHelper ("setChecked", function (value, currentValue) {
+    if ( value == currentValue ) {
+       return "Checked";
+    } else {
+       return "";
+    }
+ }); */
 
 
 function insertRecord(req, res) {
@@ -76,27 +84,61 @@ router.get('/list', (req, res) => {
 });
 
 router.all('/match', (req, res) => {
-
+    console.log(req.body.mode)
 
     let $search = this.search;
 
     var equipment=req.body.equipment;
     var element=req.body.element;
+    
+    var limit=1;
+    
+    console.log(limit)
     console.log(element)
+
+    if (req.body.mode == 'on') {
+        var order = 1
+    }
+    else {
+        var order = -1
+    }
+
+    if (req.body.limit == '1') {
+        var limit = 1
+    }
+    else if (req.body.limit == '10'){
+        var limit = 10
+    }
+    else if (req.body.limit == '30'){
+        var limit = 30
+    }
+    else if (req.body.limit == '50'){
+        var limit = 50
+    }
+    
     Employee.aggregate( [{
         '$match': {
             'equipment':equipment
+        }},
+        {'$sort': {
+            'fullName': order
+        }}, 
+        {'$limit': limit
         }
-    }],(err, docs) => {
+
+    ],(err, docs) => {
         if (!err) {
             res.render("employee/search", {
                 list: docs
             });
+            
         }
         else {
             console.log('Error in retrieving employee list :' + err);
         }
     });
+    
+    
 });
 
 
